@@ -17,14 +17,24 @@ def do_deploy(archive_path):
 
     if not os.path.exists(archive_path):
         return False
-    path = fabric.api.put(archive_path, '/tmp/')[0]
-    target = '/data/web_static/releases/' 
-    target += os.path.splitext(os.path.split(path)[1])[0]
-    fabric.api.run('mkdir -p ' + target)
-    fabric.api.run('tar -xzf ' + path + ' -C ' + target)
-    fabric.api.run('rm ' + path)
-    fabric.api.run('mv ' + target + '/web_static/* ' + target + '/')
-    fabric.api.run('rm -rf ' + target + '/web_static')
-    fabric.api.run('rm -rf /data/web_static/current')
-    fabric.api.run('ln -s ' + target + '/ /data/web_static/current')
+    file = os.path.splitext(os.path.split(archive_path)[1])[0]
+    path = fabric.api.put(archive_path, '/tmp/' + file)
+    if path.failed:
+        return False
+    path = path[0]
+    target = '/data/web_static/releases/' + file
+    if fabric.api.run('mkdir -p ' + target).failed:
+        return False
+    if fabric.api.run('tar -xzf ' + path + ' -C ' + target).failed:
+        return False
+    if fabric.api.run('rm ' + path).failed:
+        return False
+    if fabric.api.run('mv ' + target + '/web_static/* ' + target + '/').failed:
+        return False
+    if fabric.api.run('rm -rf ' + target + '/web_static').failed:
+        return False
+    if fabric.api.run('rm -rf /data/web_static/current').failed:
+        return False
+    if fabric.api.run('ln -s ' + target + '/ /data/web_static/current').failed:
+        return False
     return True
