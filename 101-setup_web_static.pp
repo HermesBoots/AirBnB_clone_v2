@@ -29,18 +29,18 @@ service { 'Nginx service':
   subscribe => File['/etc/nginx/sites-available/default']
 }
 
-
-file { 'shared resource folder':
+file { ['/data', '/data/web_static', '/data/web_static/shared',
+        '/data/web_static/releases', '/data/web_static/releases/test']:
   ensure => directory,
   group  => 'ubuntu',
-  owner  => 'ubuntu',
-  path   => '/data/web_static/shared'
+  owner  => 'ubuntu'
 }
 
 file { 'site index':
   ensure  => file,
   content => 'Sample content.',
-  path    => '/var/www/html/index.html'
+  path    => '/var/www/html/index.html',
+  require => Package['nginx']
 }
 
 file { 'test index':
@@ -48,13 +48,15 @@ file { 'test index':
   content => 'Sample content.',
   group   => 'ubuntu',
   owner   => 'ubuntu',
-  path    => '/data/web_static/releases/test/index.html'
+  path    => '/data/web_static/releases/test/index.html',
+  require => File['/data/web_static/releases/test']
 }
 
 file { 'link to latest deployment':
-  ensure => link,
-  group  => 'ubuntu',
-  owner  => 'ubuntu',
-  path   => '/data/web_static/current',
-  target => '/data/web_static/releases/test'
+  ensure  => link,
+  group   => 'ubuntu',
+  owner   => 'ubuntu',
+  path    => '/data/web_static/current',
+  require => File['/data/web_static/releases/test'],
+  target  => '/data/web_static/releases/test'
 }
