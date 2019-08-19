@@ -2,7 +2,7 @@
 # install directories on remote server for serving web releases
 
 apt-get update
-apt-get install nginx
+apt-get --yes install nginx
 mkdir --parents /data/web_static/releases/test
 mkdir --parents /data/web_static/shared
 ln --force --symbolic /data/web_static/releases/test /data/web_static/current
@@ -30,4 +30,5 @@ server {
 	}
 }
 EOF
-nginx -s reload
+service 'nginx' reload
+service 'nginx' restart
