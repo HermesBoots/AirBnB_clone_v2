@@ -36,4 +36,5 @@ def do_deploy(archive_path):
         return False
     if fabric.api.run('ln -s ' + target + '/ /data/web_static/current').failed:
         return False
+    print('New version deployed!')
     return True
