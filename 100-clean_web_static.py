@@ -17,7 +17,6 @@ def do_clean(number=0):
     if number < 1:
         number = 1
     releases = sorted(os.listdir('versions'))[:-number]
-    releases = releases[number:]
     for archive in releases:
         fabric.api.local('rm versions/' + archive)
     command = 'ls -1 --directory '
