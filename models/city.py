@@ -1,19 +1,31 @@
 #!/usr/bin/python3
-"""This is the city class"""
-from models.base_model import BaseModel, Base
-from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String, ForeignKey
+"""Module for city model"""
+
+
+import models.base_model
+import sqlalchemy
+import sqlalchemy.orm
 import os
 
 
-class City(BaseModel, Base):
-    """This is the class for City"""
+class City(models.base_model.BaseModel, models.base_model.Base):
+    """Stores a city and its relationships to other models"""
+
     __tablename__ = 'cities'
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        name = Column(String(128), nullable=False)
-        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-        places = relationship("Place", back_populates="city")
-        state = relationship("State", back_populates="cities")
+        name = sqlalchemy.Column(
+            'name',
+            sqlalchemy.String(128),
+            nullable=False
+        )
+        state_id = sqlalchemy.Column(
+            'state_id',
+            sqlalchemy.String(60),
+            sqlalchemy.ForeignKey('states.id'),
+            nullable=False
+        )
+        places = sqlalchemy.orm.relationship('Place', back_populates='city')
+        state = sqlalchemy.orm.relationship('State', back_populates='cities')
     else:
         state_id = ""
         name = ""

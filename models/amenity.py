@@ -1,19 +1,28 @@
 #!/usr/bin/python3
 """This is the amenity class"""
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer
-from sqlalchemy.orm import relationship
-from models.place import place_amenity
+
+
+import models.base_model
+import models.place
+import sqlalchemy
+import sqlalchemy.orm
 import os
 
 
-class Amenity(BaseModel, Base):
+class Amenity(models.base_model.BaseModel, models.base_model.Base):
     """Amenity attributes"""
+
     __tablename__ = "amenities"
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        name = Column(String(128), nullable=False)
-        place_amenities = relationship("Place",
-                                       secondary='place_amenity',
-                                       back_populates="amenities")
+        name = sqlalchemy.Column(
+            sqlalchemy.String(128),
+            nullable=False
+        )
+        place_amenities = sqlalchemy.orm.relationship(
+            "Place",
+            secondary='place_amenity',
+            back_populates="amenities"
+        )
+
     else:
         name = ""

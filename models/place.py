@@ -1,50 +1,106 @@
 #!/usr/bin/python3
 """This is the place class"""
-from models.base_model import BaseModel
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
-from sqlalchemy.orm import relationship
+
+
+import models.base_model
+import sqlalchemy
+import sqlalchemy.orm
 import os
 import models
 
 
-place_amenity = Table(
+place_amenity = sqlalchemy.Table(
     'place_amenity',
-    Base.metadata,
-    Column('place_id',
-           String(60),
-           ForeignKey('places.id'),
-           primary_key=True,
-           nullable=False),
-    Column('amenity_id',
-           String(60),
-           ForeignKey('amenities.id'),
-           primary_key=True,
-           nullable=False)
+    models.base_model.Base.metadata,
+    sqlalchemy.Column(
+        'place_id',
+        sqlalchemy.String(60),
+        sqlalchemy.ForeignKey('places.id'),
+        primary_key=True,
+        nullable=False
+    ),
+    sqlalchemy.Column(
+        'amenity_id',
+        sqlalchemy.String(60),
+        sqlalchemy.ForeignKey('amenities.id'),
+        primary_key=True,
+        nullable=False
+    )
 )
 """association table for places and amenities"""
 
 
-class Place(BaseModel, Base):
+class Place(models.base_model.BaseModel, models.base_model.Base):
     """This is the class for Place"""
+
     __tablename__ = "places"
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
-        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-        name = Column(String(128), nullable=False)
-        description = Column(String(1024), nullable=True)
-        number_rooms = Column(Integer, nullable=False, default=0)
-        number_bathrooms = Column(Integer, nullable=False, default=0)
-        max_guest = Column(Integer, nullable=False, default=0)
-        price_by_night = Column(Integer, nullable=False, default=0)
-        latitude = Column(Float, nullable=True)
-        longitude = Column(Float, nullable=True)
-        reviews = relationship("Review", back_populates="place")
-        amenities = relationship(
-            "Amenity", secondary='place_amenity',
-            back_populates="place_amenities", viewonly=False)
-        city = relationship("City", back_populates="places")
-        user = relationship("User", back_populates="places")
+        city_id = sqlalchemy.Column(
+            'city_id',
+            sqlalchemy.String(60),
+            sqlalchemy.ForeignKey('cities.id'),
+            nullable=False
+        )
+        user_id = sqlalchemy.Column(
+            'user_id',
+            sqlalchemy.String(60),
+            sqlalchemy.ForeignKey('users.id'),
+            nullable=False
+        )
+        name = sqlalchemy.Column(
+            'name',
+            sqlalchemy.String(128),
+            nullable=False
+        )
+        description = sqlalchemy.Column(
+            'description',
+            sqlalchemy.String(1024),
+            nullable=True
+        )
+        number_rooms = sqlalchemy.Column(
+            'number_rooms',
+            sqlalchemy.Integer,
+            nullable=False,
+            default=0
+        )
+        number_bathrooms = sqlalchemy.Column(
+            'number_bathrooms',
+            sqlalchemy.Integer,
+            nullable=False,
+            default=0
+        )
+        max_guest = sqlalchemy.Column(
+            'max_guest',
+            sqlalchemy.Integer,
+            nullable=False,
+            default=0
+        )
+        price_by_night = sqlalchemy.Column(
+            'price_by_night',
+            sqlalchemy.Integer,
+            nullable=False,
+            default=0
+        )
+        latitude = sqlalchemy.Column(
+            'latitude',
+            sqlalchemy.Float,
+            nullable=True
+        )
+        longitude = sqlalchemy.Column(
+            'longitude',
+            sqlalchemy.Float,
+            nullable=True
+        )
+        reviews = sqlalchemy.orm.relationship("Review", back_populates="place")
+        amenities = sqlalchemy.orm.relationship(
+            "Amenity",
+            secondary='place_amenity',
+            back_populates="place_amenities",
+            viewonly=False
+        )
+        city = sqlalchemy.orm.relationship("City", back_populates="places")
+        user = sqlalchemy.orm.relationship("User", back_populates="places")
+
     else:
         city_id = ""
         user_id = ""
@@ -60,27 +116,27 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
-            """Review Getter"""
-            r_dic = models.storage.all('Review')
-            r_list = []
-            for index in reviews_dict.values():
-                if index.place_id == self.id:
-                    r_list.append(index)
-            return i
+            """Get all associated reviews"""
+
+            ret = [
+                review
+                for review in models.storage.all('Review')
+                if review.place_id == self.id
+            ]
+            return ret
 
         @property
         def amenities(self):
-            """Getter for amenities"""
-            object_list = []
-            objs = models.storage.all('Amenity')
-            for index in objs.values():
-                if index.id in amenity_id:
-                    object_list.append(index)
-            return object_list
+            """Get all associated amenities"""
+
+            ret = [
+                amenity
+                for amenity in models.storage.all('Amenity')
+                if amenity.id in amenity_ids
+            ]
+            return ret
 
         @amenities.setter
         def amenities(self, obj):
-            """ameneties setter"""
             if isinstance(obj, Amenity):
-                if self.id == obj.place_id:
-                    self.amenity_ids.append(obj.id)
+                self.amenity_ids.append(obj.id)
