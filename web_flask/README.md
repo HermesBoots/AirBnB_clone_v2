@@ -5,3 +5,6 @@ Define a very basic web server with an index.
 
 ## HBNB
 Add a page to the Flask server.
+
+## C Is Fun!
+Add a route to the server that takes parameters.
