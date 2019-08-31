@@ -11,3 +11,6 @@ Add a route to the server that takes parameters.
 
 ## Python Is Cool!
 Add a route that takes an optional parameter.
+
+## Is It a Number?
+Add a route that allows any number but requires a number.
