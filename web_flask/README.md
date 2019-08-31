@@ -8,3 +8,6 @@ Add a page to the Flask server.
 
 ## C Is Fun!
 Add a route to the server that takes parameters.
+
+## Python Is Cool!
+Add a route that takes an optional parameter.
