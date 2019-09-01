@@ -17,3 +17,6 @@ Add a route that allows any number but requires a number.
 
 ## Number Template
 Render an HTML template that uses a route parameter.
+
+## Odd or Even?
+Add a conditional statement to an HTML template.
