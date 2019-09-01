@@ -67,6 +67,17 @@ Return all stored data model objects as a dictionary, optionally only those with
 
 ---
 
+###### Storage. close
+
+```python
+@abstractmethod
+def close(self) -> None
+```
+
+Close the handle associated with the storage device, discarding changes, then reload the engine.
+
+---
+
 ###### Storage. delete
 
 ```python

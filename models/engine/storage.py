@@ -19,6 +19,11 @@ class Storage (abc.ABC):
         pass
 
     @abc.abstractmethod
+    def close(self):
+        """Close and reopen the handle associated with the storage device"""
+        pass
+
+    @abc.abstractmethod
     def delete(self, cls, id=None):
         """Remove a stored data model object, but don't commit this yet"""
         pass

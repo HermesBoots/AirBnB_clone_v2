@@ -55,6 +55,13 @@ class DBStorage (models.engine.storage.Storage):
                 ret[key] = record
         return ret
 
+    def close(self):
+        """Remove the session and create a new one"""
+
+        DBStorage.__sessionMaker.remove()
+        DBStorage.__session = None
+        self.reload()
+
     def delete(self, obj=None):
         """Delete obj from the database"""
 

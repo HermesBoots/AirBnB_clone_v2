@@ -42,6 +42,11 @@ class FileStorage (models.engine.storage.Storage):
                 if name.startswith(key(cls, ''))
             }
 
+    def close(self):
+        """Reload the file"""
+
+        self.reload()
+
     def delete(self, obj, id=None):
         """Delete an object from storage"""
 
