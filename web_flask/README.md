@@ -20,3 +20,6 @@ Render an HTML template that uses a route parameter.
 
 ## Odd or Even?
 Add a conditional statement to an HTML template.
+
+## List of States
+Render an HTML template to fill in every state in the database.
