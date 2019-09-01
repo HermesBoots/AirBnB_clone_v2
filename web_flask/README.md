@@ -14,3 +14,6 @@ Add a route that takes an optional parameter.
 
 ## Is It a Number?
 Add a route that allows any number but requires a number.
+
+## Number Template
+Render an HTML template that uses a route parameter.
