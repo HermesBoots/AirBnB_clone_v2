@@ -23,3 +23,6 @@ Add a conditional statement to an HTML template.
 
 ## List of States
 Render an HTML template to fill in every state in the database.
+
+## Cities by States
+List all states and the cities within them using an HTML template.
