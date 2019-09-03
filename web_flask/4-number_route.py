@@ -38,8 +38,8 @@ def python(text='is cool'):
     return 'Python ' + text.replace('_', ' ')
 
 
-@site.route('/n/<int:n>')
-def n(n):
+@site.route('/number/<int:n>')
+def number(n):
     """Determine whether a parameter is an integer"""
 
     return str(n) + ' is a number'
