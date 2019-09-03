@@ -12,21 +12,21 @@ site = Flask(__name__)
 def index():
     """Display the site's index"""
 
-    return 'Hello HBNB!\n'
+    return 'Hello HBNB!'
 
 
 @site.route('/hbnb', strict_slashes=False)
 def hbnb():
     """A simple non-index page"""
 
-    return 'HBNB\n'
+    return 'HBNB'
 
 
 @site.route('/c/<string:text>', strict_slashes=False)
 def c(text):
     """Display the content of a text parameter"""
 
-    return 'C ' + text.replace('_', ' ') + '\n'
+    return 'C ' + text.replace('_', ' ')
 
 
 if __name__ == '__main__':
