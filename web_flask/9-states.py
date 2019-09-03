@@ -6,7 +6,7 @@ import flask
 import models
 
 
-site = flask.Flask('HBNB', template_folder='web_flask/templates')
+site = flask.Flask(__name__)
 site.url_map.strict_slashes = False
 
 
