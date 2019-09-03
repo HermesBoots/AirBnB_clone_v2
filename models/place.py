@@ -2,11 +2,11 @@
 """This is the place class"""
 
 
+import models
 import models.base_model
 import sqlalchemy
 import sqlalchemy.orm
 import os
-import models
 
 
 place_amenity = sqlalchemy.Table(
@@ -126,6 +126,12 @@ class Place(models.base_model.BaseModel, models.base_model.Base):
             return ret
 
         @property
+        def user(self):
+            """Get the user owning this place"""
+
+            return models.storage.get('User', self.user_id)
+
+        @property
         def amenities(self):
             """Get all associated amenities"""
 
@@ -140,3 +146,9 @@ class Place(models.base_model.BaseModel, models.base_model.Base):
         def amenities(self, obj):
             if isinstance(obj, Amenity):
                 self.amenity_ids.append(obj.id)
+
+        @property
+        def city(self):
+            """Get the city this place is in"""
+
+            return models.storage.get('City', self.city_id)

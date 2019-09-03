@@ -2,6 +2,7 @@
 """Module for city model"""
 
 
+import models
 import models.base_model
 import sqlalchemy
 import sqlalchemy.orm
@@ -29,3 +30,20 @@ class City(models.base_model.BaseModel, models.base_model.Base):
     else:
         state_id = ""
         name = ""
+
+        @property
+        def places(self):
+            """Get the places for rent in this city"""
+
+            ret = [
+                state
+                for state in models.storage.all('State').values()
+                if state.id == self.state_id
+            ]
+            return ret
+
+        @property
+        def state(self):
+            """Get the state this city is in"""
+
+            return models.storage.get('State', self.state_id)

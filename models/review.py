@@ -2,6 +2,7 @@
 """This is the review class"""
 
 
+import models
 import models.base_model
 import sqlalchemy
 import sqlalchemy.orm
@@ -36,3 +37,15 @@ class Review(models.base_model.BaseModel, models.base_model.Base):
         place_id = ""
         user_id = ""
         text = ""
+
+        @property
+        def place(self):
+            """Get the place this review is for"""
+
+            return models.storage.get('Place', self.place_id)
+
+        @property
+        def user(self):
+            """Get the user who wrote this review"""
+
+            return models.storage.get('User', self.user_id)
