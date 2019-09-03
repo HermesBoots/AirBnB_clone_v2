@@ -12,7 +12,7 @@ site = flask.Flask(__name__)
 def index():
     """Display the site's index"""
 
-    return 'Hello HBNB!\n'
+    return 'Hello HBNB!'
 
 
 if __name__ == '__main__':
