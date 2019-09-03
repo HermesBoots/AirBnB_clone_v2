@@ -29,3 +29,6 @@ List all states and the cities within them using an HTML template.
 
 ## States and State
 Either list all states or list the cities in one state depending on a route parameter.
+
+## HBNB Is Alive!
+Integrate the database and web templates into the the web layout and design used in the static web site project.
