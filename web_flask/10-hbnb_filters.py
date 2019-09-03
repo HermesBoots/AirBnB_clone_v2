@@ -37,4 +37,5 @@ def page_hbnbFilters():
     )
 
 
-site.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    site.run(host='0.0.0.0', port=5000)
