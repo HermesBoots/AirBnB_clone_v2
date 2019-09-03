@@ -5,14 +5,15 @@
 import flask
 
 
-app = flask.Flask(__name__)
+site = flask.Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
+@site.route('/', strict_slashes=False)
 def index():
-    """Display the app's index"""
+    """Display the site's index"""
 
     return 'Hello HBNB!\n'
 
 
-app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    site.run(host='0.0.0.0', port=5000)
