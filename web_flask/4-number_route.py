@@ -2,10 +2,10 @@
 """Module for Flask server with routes that take parameters"""
 
 
-import flask
+from flask import Flask
 
 
-site = flask.Flask(__name__)
+site = Flask(__name__)
 site.url_map.strict_slashes = False
 
 

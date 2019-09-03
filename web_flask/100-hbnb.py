@@ -2,11 +2,11 @@
 """Complete the HBNB layout with an HTML template and a database"""
 
 
-import flask
+from flask import Flask, Response, render_template
 import models
 
 
-site = flask.Flask(__name__)
+site = Flask(__name__)
 site.url_map.strict_slashes = False
 
 
@@ -31,9 +31,9 @@ def page_home():
     amenities = sorted(amenities, key=lambda a: a.name)
     places = models.storage.all('Place').values()
     places = sorted(places, key=lambda p: p.name)
-    ret = flask.Response()
+    ret = Response()
     ret.headers['Content-Type'] = 'text/html; charset=latin1'
-    ret.data = flask.render_template(
+    ret.data = render_template(
         '100-hbnb.html',
         states=states,
         cities=cities,

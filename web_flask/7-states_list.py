@@ -2,11 +2,11 @@
 """A simple Flask server using our real HBNB data"""
 
 
-import flask
+from flask import Flask, render_template
 import models
 
 
-site = flask.Flask(__name__)
+site = Flask(__name__)
 site.url_map.strict_slashes = False
 
 
@@ -22,7 +22,7 @@ def page_showStates():
     """List all the stored states"""
 
     states = models.storage.all('State').values()
-    return flask.render_template('7-states_list.html', states=states)
+    return render_template('7-states_list.html', states=states)
 
 
 site.run(host='0.0.0.0', port=5000)

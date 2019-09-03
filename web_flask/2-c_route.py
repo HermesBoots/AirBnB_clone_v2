@@ -2,10 +2,10 @@
 """Module for Flask server with several simple routes"""
 
 
-import flask
+from flask import Flask
 
 
-site = flask.Flask(__name__)
+site = Flask(__name__)
 
 
 @site.route('/', strict_slashes=False)

@@ -2,11 +2,11 @@
 """Render the filters section of the HBNB site using the database data"""
 
 
-import flask
+from flask import Flask, render_template
 import models
 
 
-site = flask.Flask(__name__)
+site = Flask(__name__)
 site.url_map.strict_slashes = False
 
 
@@ -29,7 +29,7 @@ def page_hbnbFilters():
     }
     amenities = models.storage.all('Amenity').values()
     amenities = sorted(amenities, key=lambda a: a.name)
-    return flask.render_template(
+    return render_template(
         '10-hbnb_filters.html',
         states=states,
         cities=cities,

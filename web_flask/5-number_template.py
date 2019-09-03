@@ -2,10 +2,10 @@
 """Module for Flask server with routes that take parameters"""
 
 
-import flask
+from flask import Flask, render_template
 
 
-site = flask.Flask(__name__)
+site = Flask(__name__)
 site.url_map.strict_slashes = False
 
 
@@ -49,7 +49,7 @@ def n(n):
 def number_template(n):
     """Show a web template based on the route parameter"""
 
-    return flask.render_template('5-number.html', n=n)
+    return render_template('5-number.html', n=n)
 
 
 site.run(host='0.0.0.0', port=5000)
