@@ -12,14 +12,14 @@ site = Flask(__name__)
 def index():
     """Display the site's index"""
 
-    return 'Hello HBNB!\n'
+    return 'Hello HBNB!'
 
 
 @site.route('/hbnb', strict_slashes=False)
 def hbnb():
     """A simple non-index page"""
 
-    return 'HBNB\n'
+    return 'HBNB'
 
 
 site.run(host='0.0.0.0', port=5000)
